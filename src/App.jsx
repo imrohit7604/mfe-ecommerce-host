@@ -1,5 +1,6 @@
 // src/App.jsx
 import React, { useState, Suspense, lazy } from 'react';
+import "./App.css";
 
 const Search = lazy(() => import('search/Search'));
 const Cart = lazy(() => import('cart/Cart'));
@@ -16,7 +17,7 @@ const App = () => {
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">🧭 Host App</h1>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="responsive-grid">
         <Suspense fallback={<div>Loading Search...</div>}>
           <Search onAddToCart={handleAddToCart} />
         </Suspense>
