@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState } from 'react';
 import "./App.css";
 import RemoteComponent from './components/RemoteComponent';
@@ -31,8 +30,8 @@ const App = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">🧭 Host App</h1>
+    <div className="main-container">
+      <h1 className="main-title">🧭 Host App</h1>
 
       <div className="responsive-grid">
         <RemoteComponent

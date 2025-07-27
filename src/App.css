@@ -1,20 +1,27 @@
+/* c:/Users/imroh/Documents/rohit_work/mfe-ecommerce-host/src/app.css */
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background: #f8fafc;
   margin: 0;
+  padding: 2rem; /* Add some breathing room */
 }
 
-.p-4 {
+.main-container {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   padding: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
-.text-2xl {
-  color: #2563eb;
+.main-title {
+  color: #1e293b; /* Darker, more professional color */
+  font-size: 1.875rem; /* 30px */
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
 }
-
 
 .responsive-grid {
   display: grid;
@@ -31,3 +38,37 @@ body {
 h1 {
   letter-spacing: 1px;
 }
+
+/* Skeleton Loader Styles */
+.skeleton-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  min-height: 200px;
+}
+
+.skeleton {
+  background-color: #e2e8f0;
+  border-radius: 4px;
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 40%;
+  margin-bottom: 1.5rem;
+}
+
+.skeleton-line {
+  height: 16px;
+  margin-bottom: 1rem;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
