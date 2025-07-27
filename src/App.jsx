@@ -1,10 +1,27 @@
 // src/App.jsx
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState } from 'react';
 import "./App.css";
+import RemoteComponent from './components/RemoteComponent';
 
-const Search = lazy(() => import('search/Search'));
-const Cart = lazy(() => import('cart/Cart'));
-const Analytics = lazy(() => import('analytics/Analytics'));
+
+const REMOTES = {
+  search: {
+    url: process.env.REACT_APP_SEARCH_URL || "https://mfe-ecommerce-search.vercel.app/remoteEntry.js",
+    scope: "search",
+    module: "./Search"
+  },
+  cart: {
+    url: process.env.REACT_APP_CART_URL || "https://mfe-ecommerce-cart.vercel.app/remoteEntry.js",
+    scope: "cart",
+    module: "./Cart"
+  },
+  analytics: {
+    url: process.env.REACT_APP_ANALYTICS_URL || "https://mfe-ecommerce-analytics.vercel.app/remoteEntry.js",
+    scope: "analytics",
+    module: "./Analytics"
+  }
+};
+
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -18,17 +35,18 @@ const App = () => {
       <h1 className="text-2xl font-bold mb-4">🧭 Host App</h1>
 
       <div className="responsive-grid">
-        <Suspense fallback={<div>Loading Search...</div>}>
-          <Search onAddToCart={handleAddToCart} />
-        </Suspense>
-
-        <Suspense fallback={<div>Loading Cart...</div>}>
-          <Cart items={cartItems} />
-        </Suspense>
-
-        <Suspense fallback={<div>Loading Analytics...</div>}>
-          <Analytics items={cartItems} />
-        </Suspense>
+        <RemoteComponent
+          {...REMOTES.search}
+          onAddToCart={handleAddToCart}
+        />
+        <RemoteComponent
+          {...REMOTES.cart}
+          items={cartItems}
+        />
+        <RemoteComponent
+          {...REMOTES.analytics}
+          items={cartItems}
+        />
       </div>
     </div>
   );
