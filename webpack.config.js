@@ -1,19 +1,23 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const path = require("path");
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  entry: './src/index.js',
-  mode: 'development',
+  entry: "./src/index.js",
+  mode: "development",
   devServer: {
     port: 3000,
     historyApiFallback: true,
   },
   output: {
-    publicPath: 'auto',
+    path: path.resolve(__dirname, "public"),
+    filename: "main.[contenthash].js",
+    publicPath:"/",
     clean: true,
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: [".js", ".jsx"],
   },
   module: {
     rules: [
@@ -21,30 +25,33 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
         },
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
   plugins: [
+    new Dotenv(),
     new ModuleFederationPlugin({
-      name: 'host',
+      name: "host",
       remotes: {
-        search: 'search@http://localhost:3001/remoteEntry.js',
-        cart: 'cart@http://localhost:3002/remoteEntry.js',
-        analytics: 'analytics@http://localhost:3003/remoteEntry.js',
+        search: "search", // placeholder only
+        cart: "cart",
+        analytics: "analytics",
       },
       shared: {
         react: { singleton: true },
-        'react-dom': { singleton: true },
+        "react-dom": { singleton: true },
       },
     }),
+
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: "./public/index.html",
+      inject: "body",
     }),
   ],
 };
